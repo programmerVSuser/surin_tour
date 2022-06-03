@@ -16,6 +16,7 @@ class _RegisterEmailState extends State<RegisterEmail> {
   final TextEditingController _OTP = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPassword = TextEditingController();
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
@@ -47,8 +48,7 @@ class _RegisterEmailState extends State<RegisterEmail> {
                             height: 100,
                             width: 100,
                             child: new Image(
-                                image:
-                                    new AssetImage('image/van.gif'))),
+                                image: new AssetImage('image/van.gif'))),
                         SizedBox(
                           height: 20,
                         ),
@@ -99,13 +99,37 @@ class _RegisterEmailState extends State<RegisterEmail> {
                           ),
                         ),
                         Container(
+                          padding: EdgeInsets.only(top: 10),
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter some text';
+                              }
+                              return null;
+                            },
+                            controller: _confirmPassword,
+                            cursorColor: Theme.of(context).cursorColor,
+                            decoration: InputDecoration(
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.red, width: 2.0)),
+                              icon: Icon(Icons.lock),
+                              labelText: 'Confirm Password :',
+                              labelStyle: TextStyle(
+                                color: Colors.black54,
+                              ),
+                            ),
+                            obscureText: true,
+                          ),
+                        ),
+                        Container(
                           padding: EdgeInsets.only(top: 20),
                           width: A.width * 0.4,
                           child: ElevatedButton(
                             child: Text("Next"),
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
-                                _showDialogOTP();
+                                ConfirmPassword();
                               }
                             },
                             style: ElevatedButton.styleFrom(
@@ -125,6 +149,39 @@ class _RegisterEmailState extends State<RegisterEmail> {
         ),
       ),
     );
+  }
+
+  void ConfirmPassword() {
+    print("$_passwordController");
+    print("$_confirmPassword");
+    if (_passwordController.text == _confirmPassword.text) {
+      print("confirmPassword OK");
+      _showDialogOTP();
+    } else {
+      _showDialogConfirmPasswordNotKO("Incorrect password", "กรุณากรอกข้อมูลให้ถูต้องเเละตรงกัน");
+      print("confirmPassword Not");
+    }
+  }
+
+  Future<void> _showDialogConfirmPasswordNotKO(
+      String title, String message) async {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              title: Text(title),
+              content: Text(message),
+              actions: <Widget>[
+                FlatButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      'Cancel',
+                      style: TextStyle(color: Colors.deepOrange[800]),
+                    ))
+              ]);
+        });
   }
 
   void _showDialogOTP() async {

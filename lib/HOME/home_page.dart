@@ -378,7 +378,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 ),
                                 SizedBox(height: 5,),
-                                Container(child: Text("Bill")),
+                                Container(child: Text("Ticket")),
                               ],
                             ),
                             onPressed: () {},
