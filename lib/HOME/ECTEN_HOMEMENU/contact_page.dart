@@ -152,3 +152,4 @@ class _ContactState extends State<Contact> with TickerProviderStateMixin {
     }
   }
 }
+
