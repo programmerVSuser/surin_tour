@@ -20,13 +20,12 @@ class _LoninEmailState extends State<LoninEmail> {
     Size A = MediaQuery
         .of(context)
         .size;
-    
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
           backgroundColor: Colors.blueAccent[400],
           title: Text(
-            " Login Email ",
+            "ผู้ใช้งาน เข้าสุ่ระบบ",
             style: TextStyle(color: Colors.white, fontSize: 20),
           )),
       body: SingleChildScrollView(
@@ -135,6 +134,8 @@ class _LoninEmailState extends State<LoninEmail> {
       ),
     );
   }
+
+
   Future<void>_signInWithEmailAndPassword2()async{
     FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     await firebaseAuth.signInWithEmailAndPassword(

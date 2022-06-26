@@ -29,7 +29,7 @@ class _RegisterEmailState extends State<RegisterEmail> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Register Email'),
+        title: Text('สมัคสมาชิกด้วยอีเมล'),
       ),
       body: SingleChildScrollView(
         child: Center(

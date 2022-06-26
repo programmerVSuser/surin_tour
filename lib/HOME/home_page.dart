@@ -7,7 +7,6 @@ import 'package:may/HOME_ACCOUNT/home_menu_account.dart';
 
 import 'ECTEN_HOMEMENU/conditions_page.dart';
 import 'ECTEN_HOMEMENU/contact_page.dart';
-import 'ECTEN_HOMEMENU/driver_page.dart';
 import 'ECTEN_HOMEMENU/location_page.dart';
 import 'ECTEN_HOMEMENU/walet_page.dart';
 
@@ -33,414 +32,420 @@ class _HomeScreenState extends State<HomeScreen> {
   final auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.purple[200],
-      appBar: AppBar(
-        backgroundColor: Colors.purple[700],
-        title: Text(
-          'Home menu',
-          style: TextStyle(color: Colors.white),
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.logout,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              showAlert2('Do you want to log out?',
-                  'Press the Next button to exit.');
-            },
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        backgroundColor: Colors.purple[200],
+        appBar: AppBar(
+          backgroundColor: Colors.purple[700],
+          title: Text(
+            'Home menu',
+            style: TextStyle(color: Colors.white),
           ),
-          IconButton(
-            onPressed: () {
-              showAlert3('Are you the driver?',
-                  '- Press next to enter your ID\n- Press Cancel to leave this page.');
-            },
-            icon: Icon(Icons.more_vert),
-            color: Colors.white,
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-
-              padding: EdgeInsets.only(left: 12, right: 12),
-              //color: Colors.grey,
-              height: 25,
-              width: MediaQuery.of(context).size.width,
-              child: Text(
-                'SURIN TOUR',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 25,
-                    fontWeight: FontWeight.w700),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.logout,
+                color: Colors.white,
               ),
+              onPressed: () {
+                showAlert2('ออกจากระบบ',
+                    'คุณต้องการออกจากระบบใช่หรือไม');
+              },
             ),
-            SizedBox(
-              height: 15,
-            ),
-            Container(
-              padding: EdgeInsets.only(left: 12, right: 12),
-              //color: Colors.grey,
-              height: 35,
-              width: MediaQuery.of(context).size.width,
-              child: Expanded(
-                child: AutoSizeText(
-                  'Welcome application surin tour, convenient and safe',
+            // IconButton(
+            //   onPressed: () {
+            //     showAlert3('Are you the driver?',
+            //         '- Press next to enter your ID\n- Press Cancel to leave this page.');
+            //   },
+            //   icon: Icon(Icons.more_vert),
+            //   color: Colors.white,
+            // ),
+            SizedBox(width: 15,),
+          ],
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+
+                padding: EdgeInsets.only(left: 12, right: 12),
+                //color: Colors.grey,
+                height: 25,
+                width: MediaQuery.of(context).size.width,
+                child: Text(
+                  'SURIN TOUR',
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500),
+                      fontSize: 25,
+                      fontWeight: FontWeight.w700),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            CarouselSlider(
-              options: CarouselOptions(
-                height: 200.0,
-                autoPlay: true,
-                autoPlayInterval: Duration(seconds: 3),
-                autoPlayAnimationDuration: Duration(milliseconds: 800),
-                autoPlayCurve: Curves.fastOutSlowIn,
-                pauseAutoPlayOnTouch: true,
-                aspectRatio: 2.0,
-                onPageChanged: (index, reason) {
-                  setState(() {
-                    _currentIndex = index;
-                  });
-                },
+              SizedBox(
+                height: 15,
               ),
-              items: cardList.map((card) {
-                return Builder(builder: (BuildContext context) {
+              Container(
+                padding: EdgeInsets.only(left: 12, right: 12),
+                //color: Colors.grey,
+                height: 40,
+                width: MediaQuery.of(context).size.width,
+                child: Expanded(
+                  child: AutoSizeText(
+                    'ยินดีต้อนรับสู่เเอปปลิเคชันขนส่ง สุรินทร์ - กรุงเทพ',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              CarouselSlider(
+                options: CarouselOptions(
+                  height: 200.0,
+                  autoPlay: true,
+                  autoPlayInterval: Duration(seconds: 3),
+                  autoPlayAnimationDuration: Duration(milliseconds: 800),
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  pauseAutoPlayOnTouch: true,
+                  aspectRatio: 2.0,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      _currentIndex = index;
+                    });
+                  },
+                ),
+                items: cardList.map((card) {
+                  return Builder(builder: (BuildContext context) {
+                    return Container(
+                      height: MediaQuery.of(context).size.height * 0.30,
+                      width: MediaQuery.of(context).size.width,
+                      child: Card(
+                        color: Colors.blueAccent,
+                        child: card,
+                      ),
+                    );
+                  });
+                }).toList(),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: map<Widget>(cardList, (index, url) {
                   return Container(
-                    height: MediaQuery.of(context).size.height * 0.30,
-                    width: MediaQuery.of(context).size.width,
-                    child: Card(
-                      color: Colors.blueAccent,
-                      child: card,
+                    width: 10.0,
+                    height: 10.0,
+                    margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: _currentIndex == index
+                          ? Colors.blueAccent
+                          : Colors.grey,
                     ),
                   );
-                });
-              }).toList(),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: map<Widget>(cardList, (index, url) {
-                return Container(
-                  width: 10.0,
-                  height: 10.0,
-                  margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: _currentIndex == index
-                        ? Colors.blueAccent
-                        : Colors.grey,
-                  ),
-                );
-              }),
-            ),
-          SizedBox(height: 10,),
-          Container(
-            height: 500,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: const Radius.circular(25.0),
-                topRight: const Radius.circular(25.0),
+                }),
               ),
-              color: Colors.white,
-            ),
-            child: Column(
-              children: [
-                SizedBox(height: 20,),
-                Container(
-                  padding: EdgeInsets.only(left: 30, right: 30),
-                  height: 25,
-                  width: MediaQuery.of(context).size.width,
-                  child: Text(
-                    'MORE MENU',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700),
-                  ),
+            SizedBox(height: 10,),
+            Container(
+              height: 500,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: const Radius.circular(25.0),
+                  topRight: const Radius.circular(25.0),
                 ),
-                Container(
-                  padding: EdgeInsets.only(right: 20,left: 20,top: 20,),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child:Container(
-                          height: 120,
-                          width: MediaQuery.of(context).size.width,
-                          child: ElevatedButton(
-                            child: Column(
-                              children: [
-                                SizedBox(height: 15,),
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(40.0),
-                                  child: Container(
-                                    padding: EdgeInsets.only(left: 5,right: 5),
-                                    color: Colors.white,
-                                    height: 60,
-                                    width: 60,
-                                    child: Icon(
-                                      Icons.question_answer,
-                                      color: Colors.yellow[800],
-                                      size: 30.0,
-                                    ),
-                                    //child: Image.asset("image/CONTACT.png"),
-                                  ),
-                                ),
-                                SizedBox(height: 5,),
-                                Container(child: Text("Contact")),
-                              ],
-                            ),
-                            onPressed: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) => Contact()));
-                            },
-                            style: ElevatedButton.styleFrom(
-                              primary: Colors.yellow[200],
-                              onPrimary: Colors.yellow[800],
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 20,),
-                      Expanded(
-                        child:Container(
-                          height: 120,
-                          width: MediaQuery.of(context).size.width,
-                          child: ElevatedButton(
-                            child: Column(
-                              children: [
-                                SizedBox(height: 15,),
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(40.0),
-                                  child: Container(
-                                    padding: EdgeInsets.only(left: 5,right: 5),
-                                    color: Colors.white,
-                                    height: 60,
-                                    width: 60,
-                                    child: Icon(
-                                      Icons.add_box,
-                                      color: Colors.lightBlue[800],
-                                      size: 30.0,
-                                    ),
-                                    //child: Image.asset("image/CONTACT.png"),
-                                  ),
-                                ),
-                                SizedBox(height: 5,),
-                                Container(child: Text("Reserve")),
-                              ],
-                            ),
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              primary: Colors.lightBlue[200],
-                              onPrimary: Colors.lightBlue[800],
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                color: Colors.white,
+              ),
+              child: Column(
+                children: [
+                  SizedBox(height: 20,),
+                  Container(
+                    padding: EdgeInsets.only(left: 30, right: 30),
+                    height: 25,
+                    width: MediaQuery.of(context).size.width,
+                    child: Text(
+                      'MORE MENU',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700),
+                    ),
                   ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(right: 20,left: 20,top: 20,),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child:Container(
-                          height: 120,
-                          width: MediaQuery.of(context).size.width,
-                          child: ElevatedButton(
-                            child: Column(
-                              children: [
-                                SizedBox(height: 15,),
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(40.0),
-                                  child: Container(
-                                    padding: EdgeInsets.only(left: 5,right: 5),
-                                    color: Colors.white,
-                                    height: 60,
-                                    width: 60,
-                                    child: Icon(
-                                      Icons.pin_drop,
-                                      color: Colors.purple[800],
-                                      size: 30.0,
+                  Container(
+                    padding: EdgeInsets.only(right: 20,left: 20,top: 20,),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child:Container(
+                            height: 120,
+                            width: MediaQuery.of(context).size.width,
+                            child: ElevatedButton(
+                              child: Column(
+                                children: [
+                                  SizedBox(height: 15,),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(40.0),
+                                    child: Container(
+                                      padding: EdgeInsets.only(left: 5,right: 5),
+                                      color: Colors.white,
+                                      height: 60,
+                                      width: 60,
+                                      child: Icon(
+                                        Icons.question_answer,
+                                        color: Colors.yellow[800],
+                                        size: 30.0,
+                                      ),
+                                      //child: Image.asset("image/CONTACT.png"),
                                     ),
-                                    //child: Image.asset("image/CONTACT.png"),
                                   ),
+                                  SizedBox(height: 5,),
+                                  Container(child: Text("ติดต่อผู้ดูเเล")),
+                                ],
+                              ),
+                              onPressed: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) => Contact()));
+                              },
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.yellow[200],
+                                onPrimary: Colors.yellow[800],
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
-                                SizedBox(height: 5,),
-                                Container(child: Text("location")),
-                              ],
-                            ),
-                            onPressed: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) => MMap()));
-                            },
-                            style: ElevatedButton.styleFrom(
-                              primary: Colors.purple[200],
-                              onPrimary: Colors.purple[800],
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      SizedBox(width: 20,),
-                      Expanded(
-                        child:Container(
-                          height: 120,
-                          width: MediaQuery.of(context).size.width,
-                          child: ElevatedButton(
-                            child: Column(
-                              children: [
-                                SizedBox(height: 15,),
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(40.0),
-                                  child: Container(
-                                    padding: EdgeInsets.only(left: 5,right: 5),
-                                    color: Colors.white,
-                                    height: 60,
-                                    width: 60,
-                                    child: Icon(
-                                      Icons.event_note_sharp,
-                                      color: Colors.red[800],
-                                      size: 30.0,
+                        SizedBox(width: 20,),
+                        Expanded(
+                          child:Container(
+                            height: 120,
+                            width: MediaQuery.of(context).size.width,
+                            child: ElevatedButton(
+                              child: Column(
+                                children: [
+                                  SizedBox(height: 15,),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(40.0),
+                                    child: Container(
+                                      padding: EdgeInsets.only(left: 5,right: 5),
+                                      color: Colors.white,
+                                      height: 60,
+                                      width: 60,
+                                      child: Icon(
+                                        Icons.add_box,
+                                        color: Colors.lightBlue[800],
+                                        size: 30.0,
+                                      ),
+                                      //child: Image.asset("image/CONTACT.png"),
                                     ),
-                                    //child: Image.asset("image/CONTACT.png"),
                                   ),
+                                  SizedBox(height: 5,),
+                                  Container(child: Text("จองตั๋ว")),
+                                ],
+                              ),
+                              onPressed: () {},
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.lightBlue[200],
+                                onPrimary: Colors.lightBlue[800],
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
-                                SizedBox(height: 5,),
-                                Container(child: AutoSizeText("Conditions")),
-                              ],
-                            ),
-                            onPressed: () {
-                              //Conditions
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) => Conditions()));
-                            },
-                            style: ElevatedButton.styleFrom(
-                              primary: Colors.red[200],
-                              onPrimary: Colors.red[800],
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(right: 20,left: 20,top: 20,),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child:Container(
-                          height: 120,
-                          width: MediaQuery.of(context).size.width,
-                          child: ElevatedButton(
-                            child: Column(
-                              children: [
-                                SizedBox(height: 15,),
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(40.0),
-                                  child: Container(
-                                    padding: EdgeInsets.only(left: 5,right: 5),
-                                    color: Colors.white,
-                                    height: 60,
-                                    width: 60,
-                                    child: Icon(
-                                      Icons.filter_frames_sharp,
-                                      color: Colors.green[800],
-                                      size: 30.0,
+                  Container(
+                    padding: EdgeInsets.only(right: 20,left: 20,top: 20,),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child:Container(
+                            height: 120,
+                            width: MediaQuery.of(context).size.width,
+                            child: ElevatedButton(
+                              child: Column(
+                                children: [
+                                  SizedBox(height: 15,),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(40.0),
+                                    child: Container(
+                                      padding: EdgeInsets.only(left: 5,right: 5),
+                                      color: Colors.white,
+                                      height: 60,
+                                      width: 60,
+                                      child: Icon(
+                                        Icons.pin_drop,
+                                        color: Colors.purple[800],
+                                        size: 30.0,
+                                      ),
+                                      //child: Image.asset("image/CONTACT.png"),
                                     ),
-                                    //child: Image.asset("image/CONTACT.png"),
                                   ),
+                                  SizedBox(height: 5,),
+                                  Container(child: Text("ตำเเหน่ง บขส")),
+                                ],
+                              ),
+                              onPressed: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) => MMap()));
+                              },
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.purple[200],
+                                onPrimary: Colors.purple[800],
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
-                                SizedBox(height: 5,),
-                                Container(child: Text("Ticket")),
-                              ],
-                            ),
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              primary: Colors.green[200],
-                              onPrimary: Colors.green[800],
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      SizedBox(width: 20,),
-                      Expanded(
-                        child:Container(
-                          height: 120,
-                          width: MediaQuery.of(context).size.width,
-                          child: ElevatedButton(
-                            child: Column(
-                              children: [
-                                SizedBox(height: 15,),
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(40.0),
-                                  child: Container(
-                                    padding: EdgeInsets.only(left: 5,right: 5),
-                                    color: Colors.white,
-                                    height: 60,
-                                    width: 60,
-                                    child: Icon(
-                                      Icons.monetization_on,
-                                      color: Colors.orange[800],
-                                      size: 30.0,
+                        SizedBox(width: 20,),
+                        Expanded(
+                          child:Container(
+                            height: 120,
+                            width: MediaQuery.of(context).size.width,
+                            child: ElevatedButton(
+                              child: Column(
+                                children: [
+                                  SizedBox(height: 15,),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(40.0),
+                                    child: Container(
+                                      padding: EdgeInsets.only(left: 5,right: 5),
+                                      color: Colors.white,
+                                      height: 60,
+                                      width: 60,
+                                      child: Icon(
+                                        Icons.event_note_sharp,
+                                        color: Colors.red[800],
+                                        size: 30.0,
+                                      ),
+                                      //child: Image.asset("image/CONTACT.png"),
                                     ),
-                                    //child: Image.asset("image/CONTACT.png"),
                                   ),
+                                  SizedBox(height: 5,),
+                                  Container(child: AutoSizeText("ข้อตกลง")),
+                                ],
+                              ),
+                              onPressed: () {
+                                //Conditions
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) => Conditions()));
+                              },
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.red[200],
+                                onPrimary: Colors.red[800],
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
-                                SizedBox(height: 5,),
-                                Container(child: Text("Wallet")),
-                              ],
-                            ),
-                            onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder:(context)=>Wallet()));
-                              //Wallrt
-                            },
-                            style: ElevatedButton.styleFrom(
-                              primary: Colors.orange[200],
-                              onPrimary: Colors.orange[800],
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-            ),
-          ],
+                  Container(
+                    padding: EdgeInsets.only(right: 20,left: 20,top: 20,),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child:Container(
+                            height: 120,
+                            width: MediaQuery.of(context).size.width,
+                            child: ElevatedButton(
+                              child: Column(
+                                children: [
+                                  SizedBox(height: 15,),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(40.0),
+                                    child: Container(
+                                      padding: EdgeInsets.only(left: 5,right: 5),
+                                      color: Colors.white,
+                                      height: 60,
+                                      width: 60,
+                                      child: Icon(
+                                        Icons.filter_frames_sharp,
+                                        color: Colors.green[800],
+                                        size: 30.0,
+                                      ),
+                                      //child: Image.asset("image/CONTACT.png"),
+                                    ),
+                                  ),
+                                  SizedBox(height: 5,),
+                                  Container(child: Text("ตั๋ว")),
+                                ],
+                              ),
+                              onPressed: () {},
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.green[200],
+                                onPrimary: Colors.green[800],
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 20,),
+                        Expanded(
+                          child:Container(
+                            height: 120,
+                            width: MediaQuery.of(context).size.width,
+                            child: ElevatedButton(
+                              child: Column(
+                                children: [
+                                  SizedBox(height: 15,),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(40.0),
+                                    child: Container(
+                                      padding: EdgeInsets.only(left: 5,right: 5),
+                                      color: Colors.white,
+                                      height: 60,
+                                      width: 60,
+                                      child: Icon(
+                                        Icons.monetization_on,
+                                        color: Colors.orange[800],
+                                        size: 30.0,
+                                      ),
+                                      //child: Image.asset("image/CONTACT.png"),
+                                    ),
+                                  ),
+                                  SizedBox(height: 5,),
+                                  Container(child: Text("ประวัติการจ่ายเงิน")),
+                                ],
+                              ),
+                              onPressed: () {
+                                Navigator.push(context, MaterialPageRoute(builder:(context)=> Wallet()));
+                                //Wallrt
+                              },
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.orange[200],
+                                onPrimary: Colors.orange[800],
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -458,7 +463,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Navigator.pop(context);
                   },
                   child: Text(
-                    'Cancel',
+                    'ยกเลิก',
                     style: TextStyle(color: Colors.deepOrange[800]),
                   )),
               FlatButton(
@@ -467,7 +472,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         MaterialPageRoute(builder: (context) => HomeMenuAccount())));
                   },
                   child: Text(
-                    'Next',
+                    'ตกลง',
                     style: TextStyle(color: Colors.green),
                   )),
             ],
@@ -492,8 +497,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   )),
               FlatButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => driver()));
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) => driver()));
                   },
                   child: Text(
                     'Next',

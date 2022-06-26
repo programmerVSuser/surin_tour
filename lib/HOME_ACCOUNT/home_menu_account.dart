@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:may/HOME/home_page.dart';
+import 'package:may/HOME_ACCOUNT/selected_radio_account.dart';
 import 'package:may/LOGIN/google_sing_in.dart';
 import 'package:may/LOGIN/login_email.dart';
 import 'package:may/LOGIN/phone_page.dart';
@@ -63,8 +64,8 @@ class _HomeMenuAccountState extends State<HomeMenuAccount> {
                               children: [
                                 ElevatedButton(
                                   style: ButtonStyle(
-                                    minimumSize:
-                                    MaterialStateProperty.all(Size(300, 35)),
+                                    minimumSize: MaterialStateProperty.all(
+                                        Size(300, 45)),
                                     backgroundColor: MaterialStateProperty.all<Color>(
                                         Colors.white),
                                     shape: MaterialStateProperty.all<
@@ -81,7 +82,7 @@ class _HomeMenuAccountState extends State<HomeMenuAccount> {
                                     onPressed: () => Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => LoninEmail()),
+                                          builder: (context) => SelectedRadio()),
                                     )
                                 ),
                               ],
@@ -94,18 +95,23 @@ class _HomeMenuAccountState extends State<HomeMenuAccount> {
                             padding: EdgeInsets.only(top: 10),
                             width: size.width * 0.7,
                             child: ElevatedButton(
-                              child: Text("Register Email"),
+                              child: Text("Register Email",style: TextStyle(color: Colors.white),),
                                 onPressed: () => Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => RegisterEmail()),
                                 ),
-                              style: ElevatedButton.styleFrom(
-                                primary: Colors.blueAccent[600],
-                                onPrimary: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                ),
+                              style: ButtonStyle(
+                                minimumSize: MaterialStateProperty.all(
+                                    Size(300, 45)),
+                                backgroundColor: MaterialStateProperty.all<Color>(
+                                    Colors.blueAccent),
+                                shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12.0),
+                                        side: BorderSide(
+                                            color: Colors.blueAccent))),
                               ),
                             ),
                           ),
